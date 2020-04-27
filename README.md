@@ -9,21 +9,19 @@ $ python setup.py build_ext --inplace
 ```
 
 
-## Slit scan
+## How to use
 
+### slit scan
 ```
 $  ./main.py --timeshift-type random
 ```
 
-## Random pixel delay
-
+### random pixel delay
 ```
 $ ./main.py --timeshift-type slitscan
 ```
 
-
-## Use redorded video
-
+### with recorded video file
 ```
 $ ./main.py video_file_name
 ```

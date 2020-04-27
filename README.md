@@ -1,5 +1,13 @@
 # SlitScan
 
+## Setup
+
+### compile module
+
+```
+$ python setup.py build_ext --inplace
+```
+
 
 ## Slit scan
 

@@ -2,7 +2,7 @@
 
 import numpy as np
 import cv2
-import sys
+import ccalc
 
 class TimeShiftFrame(object):
     """docstring for TimeShiftFrame."""
@@ -31,11 +31,8 @@ class TimeShiftFrame(object):
     def getFrame(self):
         if not self.isUpdated:
             return self.frame
-        for r in range(self.frameHeight):
-            for c in range(self.frameWidth):
-                t_shift = self.timeShiftMatrix[r,c]
-                t = self.frame_history_pointer - t_shift
-                self.frame[r, c] = self.frame_history[t][r, c]
+
+        self.frame = ccalc.time_shit_pixel(self.frame_history, self.frame_history_pointer, self.timeShiftMatrix)
         self.isUpdated = False
         return self.frame
 
@@ -43,8 +40,8 @@ class TimeShiftFrame(object):
 import argparse
 
 time_shift_matrix_generator = {
-    'slitscan': lambda w, h, d: np.tile(np.linspace(0, d, h, endpoint=False, dtype=int).reshape(1, -1).T, (1, w)),
-    'random': lambda w, h, d: np.random.randint(d, size=(h, w))
+    'slitscan': lambda w, h, d: np.tile(np.linspace(0, d, h, endpoint=False, dtype=np.uint).reshape(1, -1).T, (1, w)),
+    'random': lambda w, h, d: np.random.randint(d, size=(h, w), dtype=np.uint)
 }
 
 if __name__ == '__main__':
